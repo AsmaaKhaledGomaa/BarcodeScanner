@@ -123,6 +123,19 @@ public class ScanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        String scanResult = scanViewModel.getScannedResult().getValue();
+        String scanType = scanViewModel.getScanType().getValue();
+
+        if (scanResult != null && !scanResult.isEmpty() && scanType != null && !scanType.isEmpty()) {
+            binding.scanResult.setText(scanResult);
+            binding.scanType.setText(scanType);
+            binding.favoriteButton.setEnabled(true);
+        } else {
+            binding.favoriteButton.setEnabled(false);
+        }
+
+
         binding.scanButton.setOnClickListener(v -> scanViewModel.checkCameraPermission());
     }
 
