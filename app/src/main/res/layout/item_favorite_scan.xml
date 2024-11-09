@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="favoriteScan"
+            type="com.asmaa.barcodescanner.data.FavoriteScan" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Scan Result Text -->
+            <TextView
+                android:id="@+id/scanResultTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@{favoriteScan.scanResult}"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!-- Scan Type Text -->
+            <TextView
+                android:id="@+id/scanTypeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{favoriteScan.scanType}"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

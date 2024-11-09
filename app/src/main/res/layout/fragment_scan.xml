@@ -1,13 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.ScanFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Scan_fragment" />
+    <!-- CardView for Scan Result -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/scanResultCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="42dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@id/scanButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/gray">
 
-</FrameLayout>
+        <!-- LinearLayout to separate Scan Type and Scan Result -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <!-- Scan Type TextView -->
+            <TextView
+                android:id="@+id/scanType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Scan Type: Not Selected"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="@color/white"/>
+
+            <!-- Scan Result TextView -->
+            <TextView
+                android:id="@+id/scanResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="16dp"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:gravity="center"
+                android:text="Scan result will appear here"
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
+
+            <ImageButton
+                android:id="@+id/favoriteButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_favorite"
+                android:layout_marginTop="50dp"
+                android:foregroundGravity="center"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Scan Button -->
+    <Button
+        android:id="@+id/scanButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/rounded_button"
+        android:gravity="center"
+        android:padding="14dp"
+        android:text="Scan"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
