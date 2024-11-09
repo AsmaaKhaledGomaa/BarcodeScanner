@@ -1,4 +1,4 @@
-package com.asmaa.barcodescanner.presentation;
+package com.asmaa.barcodescanner.presentation.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

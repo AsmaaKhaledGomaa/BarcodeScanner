@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.asmaa.barcodescanner.R;
-import com.asmaa.barcodescanner.presentation.FavoriteScanAdapter;
+import com.asmaa.barcodescanner.presentation.adapter.FavoriteScanAdapter;
 import com.asmaa.barcodescanner.presentation.viewmodel.FavoriteScanViewModel;
 
 public class FavoriteFragment extends Fragment {

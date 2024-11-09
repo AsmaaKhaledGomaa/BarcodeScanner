@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.asmaa.barcodescanner.R;
-import com.asmaa.barcodescanner.presentation.ScanHistoryAdapter;
+import com.asmaa.barcodescanner.presentation.adapter.ScanHistoryAdapter;
 import com.asmaa.barcodescanner.presentation.viewmodel.HistoryViewModel;
 
 public class HistoryFragment extends Fragment {

@@ -79,47 +79,12 @@ public class ScanFragment extends Fragment {
 
 
         binding.favoriteButton.setOnClickListener(v -> {
-            // Get the latest scan result
-            ScanResult latestScan = scanViewModel.getLatestScanResult().getValue();
-            if (latestScan == null) {
-                Log.e("FavoriteButton", "Latest scan is null.");
-            } else {
-                Log.d("FavoriteButton", "Scan Result: " + latestScan.getResult());
-                Log.d("FavoriteButton", "Scan Type: " + latestScan.getType());
-            }
-
-            if (latestScan == null || latestScan.getResult() == null || latestScan.getResult().isEmpty() ||
-                    latestScan.getType() == null || latestScan.getType().isEmpty()) {
-                Toast.makeText(requireContext(), "Scan result or type is empty", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Toggle the favorite state
             isFavorite = !isFavorite;
             updateFavoriteButtonState();
-
-            // Create a FavoriteScan object
-            FavoriteScan favoriteScan = new FavoriteScan(latestScan.getResult(), latestScan.getType());
-
-            if (isFavorite) {
-                // Add to favorites
-                favoriteScanViewModel.insert(favoriteScan);
-                Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
-            } else {
-                // Remove from favorites by scan result or ID
-                favoriteScanViewModel.delete();
-                Toast.makeText(requireContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
-            }
-
-            // Update the favorite state in ScanViewModel
-            scanViewModel.updateFavoriteState(latestScan.getId(), isFavorite);
         });
-
-
     }
 
-
-        private void updateFavoriteButtonState() {
+    private void updateFavoriteButtonState() {
         int color = isFavorite ? R.color.red : R.color.green;
         binding.favoriteButton.setColorFilter(ContextCompat.getColor(requireContext(), color), PorterDuff.Mode.SRC_IN);
     }

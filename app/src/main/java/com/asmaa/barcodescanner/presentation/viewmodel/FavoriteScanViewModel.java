@@ -25,7 +25,6 @@ public class FavoriteScanViewModel extends AndroidViewModel {
         return favoriteScanRepository.getFavoriteScanByResult(scanResult);
     }
 
-
     public LiveData<List<FavoriteScan>> getAllFavorites() {
         return allFavorites;
     }

@@ -1,4 +1,4 @@
-package com.asmaa.barcodescanner.presentation;
+package com.asmaa.barcodescanner.presentation.activity;
 
 import android.os.Bundle;
 
