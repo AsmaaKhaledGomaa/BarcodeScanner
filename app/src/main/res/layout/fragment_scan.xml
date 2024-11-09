@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragment.ScanFragment">
 
-    <!-- CardView for Scan Result -->
     <androidx.cardview.widget.CardView
         android:id="@+id/scanResultCard"
         android:layout_width="0dp"
@@ -20,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:backgroundTint="@color/gray">
 
-        <!-- LinearLayout to separate Scan Type and Scan Result -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +27,6 @@
             android:orientation="vertical"
             android:padding="30dp">
 
-            <!-- Scan Type TextView -->
             <TextView
                 android:id="@+id/scanType"
                 android:layout_width="wrap_content"
@@ -40,7 +37,6 @@
                 android:gravity="center"
                 android:textColor="@color/white"/>
 
-            <!-- Scan Result TextView -->
             <TextView
                 android:id="@+id/scanResult"
                 android:layout_width="wrap_content"
@@ -68,7 +64,6 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Scan Button -->
     <Button
         android:id="@+id/scanButton"
         android:layout_width="160dp"
