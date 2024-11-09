@@ -29,14 +29,6 @@ public class ScanViewModel extends AndroidViewModel {
         scanRepository = new ScanRepository(application);
     }
 
-    public LiveData<String> getScannedResult() {
-        return scannedResult;
-    }
-
-    public LiveData<String> getScanType() {
-        return scanType;
-    }
-
     public LiveData<ScanResult> getLatestScanResult() {
         return scanRepository.getLatestScanResult();
     }
@@ -91,8 +83,5 @@ public class ScanViewModel extends AndroidViewModel {
         } else {
             return "Unknown";
         }
-    }
-    public void updateFavoriteState(int scanId, boolean isFavorite) {
-        scanRepository.updateFavoriteState(scanId, isFavorite);
     }
 }
