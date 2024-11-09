@@ -10,6 +10,8 @@ constraintlayout = "2.2.0"
 lifecycle = "2.6.1"
 coroutines = "1.6.4"
 cameraX = "1.1.0"
+scanner = "4.3.0"
+room = "2.5.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -25,7 +27,12 @@ coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", ve
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraX" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraX" }
+scanner = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "scanner" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-
