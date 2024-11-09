@@ -61,7 +61,8 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_favorite"
                 android:layout_marginTop="50dp"
-                android:foregroundGravity="center"/>
+                android:foregroundGravity="center"
+                app:tint="@color/green" />
 
         </LinearLayout>
 

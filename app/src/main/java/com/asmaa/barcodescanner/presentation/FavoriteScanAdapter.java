@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.asmaa.barcodescanner.data.FavoriteScan;
+import com.asmaa.barcodescanner.data.entity.FavoriteScan;
 import com.asmaa.barcodescanner.databinding.ItemFavoriteScanBinding;
 
 public class FavoriteScanAdapter extends ListAdapter<FavoriteScan, FavoriteScanAdapter.FavoriteScanViewHolder> {

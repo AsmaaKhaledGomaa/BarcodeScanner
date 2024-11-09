@@ -1,10 +1,12 @@
-package com.asmaa.barcodescanner.data;
+package com.asmaa.barcodescanner.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import com.asmaa.barcodescanner.data.entity.FavoriteScan;
 
 import java.util.List;
 

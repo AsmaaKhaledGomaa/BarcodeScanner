@@ -1,4 +1,4 @@
-package com.asmaa.barcodescanner.domain;
+package com.asmaa.barcodescanner.domain.usecase;
 
 import androidx.fragment.app.Fragment;
 

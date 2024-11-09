@@ -1,4 +1,4 @@
-package com.asmaa.barcodescanner.data;
+package com.asmaa.barcodescanner.data.database;
 
 import android.content.Context;
 
@@ -6,20 +6,22 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {FavoriteScan.class}, version = 1, exportSchema = false)
-public abstract class AppDatabase extends RoomDatabase {
+import com.asmaa.barcodescanner.data.entity.FavoriteScan;
+import com.asmaa.barcodescanner.data.dao.FavoriteScanDao;
 
-    private static volatile AppDatabase INSTANCE;
+@Database(entities = {FavoriteScan.class}, version = 1, exportSchema = false)
+public abstract class FavoriteDatabase extends RoomDatabase {
+
+    private static volatile FavoriteDatabase INSTANCE;
 
     public abstract FavoriteScanDao favoriteScanDao();
 
-    // Singleton pattern to get the database instance
-    public static AppDatabase getDatabase(final Context context) {
+    public static FavoriteDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (AppDatabase.class) {
+            synchronized (FavoriteDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    AppDatabase.class, "favorite_scan_database")
+                                    FavoriteDatabase.class, "favorite_scan_database")
                             .build();
                 }
             }

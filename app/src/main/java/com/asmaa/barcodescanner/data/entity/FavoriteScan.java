@@ -1,4 +1,4 @@
-package com.asmaa.barcodescanner.data;
+package com.asmaa.barcodescanner.data.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

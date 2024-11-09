@@ -1,4 +1,4 @@
-package com.asmaa.barcodescanner.data;
+package com.asmaa.barcodescanner.data.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,13 +8,15 @@ public class ScanResult {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String result; // The content of the scan (QR code or barcode result)
-    private String type;   // The type of scan (QR, Barcode, etc.)
+    private String result;
+    private String type;
+    private boolean isFavorite;
 
     // Constructor
-    public ScanResult(String result, String type) {
+    public ScanResult(String result, String type, boolean isFavorite) {
         this.result = result;
         this.type = type;
+        this.isFavorite = isFavorite;
     }
 
     // Getters and Setters
@@ -40,5 +42,13 @@ public class ScanResult {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

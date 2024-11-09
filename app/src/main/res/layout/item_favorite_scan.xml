@@ -6,7 +6,7 @@
 
         <variable
             name="favoriteScan"
-            type="com.asmaa.barcodescanner.data.FavoriteScan" />
+            type="com.asmaa.barcodescanner.data.entity.FavoriteScan" />
     </data>
 
     <androidx.cardview.widget.CardView

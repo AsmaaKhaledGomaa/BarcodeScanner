@@ -7,16 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
 
-import com.asmaa.barcodescanner.data.ScanResult;
-import com.asmaa.barcodescanner.domain.ScanRepository;
-import com.asmaa.barcodescanner.domain.ScanUseCase;
+import com.asmaa.barcodescanner.data.entity.ScanResult;
+import com.asmaa.barcodescanner.domain.repo.ScanRepository;
+import com.asmaa.barcodescanner.domain.usecase.ScanUseCase;
 import com.asmaa.barcodescanner.presentation.fragment.ScanFragment;
 import com.asmaa.barcodescanner.utils.PermissionUtils;
 import com.google.zxing.integration.android.IntentResult;
-
-import java.util.List;
 
 public class ScanViewModel extends AndroidViewModel {
 
@@ -32,15 +29,6 @@ public class ScanViewModel extends AndroidViewModel {
         scanRepository = new ScanRepository(application);
     }
 
-    // Fetch the latest scan result from the repository
-    public LiveData<ScanResult> getLatestScanResult() {
-        return scanRepository.getLatestScanResult();
-    }
-
-    public LiveData<Boolean> isPermissionGranted() {
-        return permissionGranted;
-    }
-
     public LiveData<String> getScannedResult() {
         return scannedResult;
     }
@@ -49,6 +37,13 @@ public class ScanViewModel extends AndroidViewModel {
         return scanType;
     }
 
+    public LiveData<ScanResult> getLatestScanResult() {
+        return scanRepository.getLatestScanResult();
+    }
+
+    public LiveData<Boolean> isPermissionGranted() {
+        return permissionGranted;
+    }
 
     public void checkCameraPermission() {
         boolean isGranted = PermissionUtils.isCameraPermissionGranted(getApplication());
@@ -57,7 +52,6 @@ public class ScanViewModel extends AndroidViewModel {
 
     public void startScan(ScanFragment fragment) {
         if (scanUseCase != null) {  // Check if it's initialized
-            // Start scanning without specifying a type
             scanUseCase.startScan(fragment);
         } else {
             // Handle the case where scanUseCase is not initialized
@@ -65,33 +59,40 @@ public class ScanViewModel extends AndroidViewModel {
         }
     }
 
+    // Process the scan result and save it
     public void processScanResult(IntentResult result) {
         if (result != null && result.getContents() != null) {
             String scanResultContent = result.getContents();
-            scannedResult.setValue(scanResultContent);  // Set scan result
+            scannedResult.setValue(scanResultContent);
 
-            // Insert the scan result into the database
-            ScanResult scanResult = new ScanResult(scanResultContent, scanType.getValue());
+            // Insert the latest scan result into the database
+            String scanTypeValue = determineScanType(result);
+            ScanResult scanResult = new ScanResult(scanResultContent, scanTypeValue, false);
             scanRepository.insertLatestScanResult(scanResult);
 
-            // Determine scan type based on result format
-            String formatName = result.getFormatName();
-            if ("QR_CODE".equals(formatName)) {
-                scanType.setValue("QR Code");
-            } else if ("EAN_13".equals(formatName) || "UPC_A".equals(formatName) ||
-                    "EAN_8".equals(formatName) || "UPC_E".equals(formatName) ||
-                    "CODE_39".equals(formatName) || "CODE_128".equals(formatName) ||
-                    "ITF".equals(formatName) || "PDF_417".equals(formatName) ||
-                    "AZTEC".equals(formatName) || "DATA_MATRIX".equals(formatName)) {
-                scanType.setValue("Barcode");
-            } else {
-                scanType.setValue("Unknown");
-            }
+            scanType.setValue(scanTypeValue);
         } else {
             scannedResult.setValue("Scan canceled or failed");
             scanType.setValue("Unknown");
         }
     }
 
-
+    // Determine scan type based on result format
+    private String determineScanType(IntentResult result) {
+        String formatName = result.getFormatName();
+        if ("QR_CODE".equals(formatName)) {
+            return "QR Code";
+        } else if ("EAN_13".equals(formatName) || "UPC_A".equals(formatName) ||
+                "EAN_8".equals(formatName) || "UPC_E".equals(formatName) ||
+                "CODE_39".equals(formatName) || "CODE_128".equals(formatName) ||
+                "ITF".equals(formatName) || "PDF_417".equals(formatName) ||
+                "AZTEC".equals(formatName) || "DATA_MATRIX".equals(formatName)) {
+            return "Barcode";
+        } else {
+            return "Unknown";
+        }
+    }
+    public void updateFavoriteState(int scanId, boolean isFavorite) {
+        scanRepository.updateFavoriteState(scanId, isFavorite);
+    }
 }

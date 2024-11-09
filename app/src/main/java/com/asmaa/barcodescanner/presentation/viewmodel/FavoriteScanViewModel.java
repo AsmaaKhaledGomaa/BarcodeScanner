@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.asmaa.barcodescanner.data.FavoriteScan;
-import com.asmaa.barcodescanner.domain.FavoriteScanRepository;
+import com.asmaa.barcodescanner.data.entity.FavoriteScan;
+import com.asmaa.barcodescanner.domain.repo.FavoriteScanRepository;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
-package com.asmaa.barcodescanner.domain;
+package com.asmaa.barcodescanner.domain.repo;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.asmaa.barcodescanner.data.AppDatabase;
-import com.asmaa.barcodescanner.data.FavoriteScan;
-import com.asmaa.barcodescanner.data.FavoriteScanDao;
+import com.asmaa.barcodescanner.data.database.FavoriteDatabase;
+import com.asmaa.barcodescanner.data.entity.FavoriteScan;
+import com.asmaa.barcodescanner.data.dao.FavoriteScanDao;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class FavoriteScanRepository {
     private final FavoriteScanDao favoriteScanDao;
 
     public FavoriteScanRepository(Application application) {
-        AppDatabase db = AppDatabase.getDatabase(application);
+        FavoriteDatabase db = FavoriteDatabase.getDatabase(application);
         favoriteScanDao = db.favoriteScanDao();
     }
 
