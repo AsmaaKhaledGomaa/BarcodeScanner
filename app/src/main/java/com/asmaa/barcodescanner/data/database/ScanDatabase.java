@@ -6,22 +6,27 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.asmaa.barcodescanner.data.entity.FavoriteScan;
 import com.asmaa.barcodescanner.data.entity.ScanResult;
 import com.asmaa.barcodescanner.data.dao.ScanResultDao;
 
-@Database(entities = {ScanResult.class}, version = 1)
+@Database(entities = {ScanResult.class}, version = 1, exportSchema = false)
 public abstract class ScanDatabase extends RoomDatabase {
 
-    private static ScanDatabase instance;
+    private static ScanDatabase INSTANCE;
+
     public abstract ScanResultDao scanResultDao();
 
-    public static synchronized ScanDatabase getInstance(Context context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(),
-                            ScanDatabase.class, "scan_database")
-                    .fallbackToDestructiveMigration()
-                    .build();
+    public static ScanDatabase getInstance(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (ScanDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                    ScanDatabase.class, "scan_database")
+                            .build();
+                }
+            }
         }
-        return instance;
+        return INSTANCE;
     }
 }
