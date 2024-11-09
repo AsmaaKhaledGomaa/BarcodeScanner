@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.utils.KOTLIN_KAPT_PLUGIN_ID
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -32,6 +34,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -53,4 +56,11 @@ dependencies {
 
     implementation(libs.camera.core)
     implementation(libs.camera.camera2)
+
+    implementation(libs.scanner)
+
+    // Room database dependencies for Java
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    annotationProcessor(libs.room.compiler)
 }
