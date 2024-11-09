@@ -12,14 +12,12 @@ public class ScanResult {
     private String type;
     private boolean isFavorite;
 
-    // Constructor
     public ScanResult(String result, String type, boolean isFavorite) {
         this.result = result;
         this.type = type;
         this.isFavorite = isFavorite;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }

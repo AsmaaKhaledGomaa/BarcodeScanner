@@ -20,6 +20,8 @@ public class ScanViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> permissionGranted = new MutableLiveData<>();
     private final MutableLiveData<String> scannedResult = new MutableLiveData<>();
     private final MutableLiveData<String> scanType = new MutableLiveData<>();
+
+    private final MutableLiveData<Boolean> isFavorite = new MutableLiveData<>(false);
     private final ScanRepository scanRepository;
     private final ScanUseCase scanUseCase;
 
@@ -35,6 +37,22 @@ public class ScanViewModel extends AndroidViewModel {
 
     public LiveData<String> getScanType() {
         return scanType;
+    }
+
+    public LiveData<Boolean> getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void toggleFavorite(int scanId) {
+        Boolean currentState = isFavorite.getValue();
+        boolean newState = currentState == null || !currentState;
+        isFavorite.setValue(newState);
+
+        scanRepository.updateFavoriteState(scanId, newState);
+    }
+
+    public void setIsFavorite(Boolean isFavorite) {
+        this.isFavorite.setValue(isFavorite);
     }
 
     public LiveData<ScanResult> getLatestScanResult() {
@@ -58,7 +76,6 @@ public class ScanViewModel extends AndroidViewModel {
         }
     }
 
-    // Process the scan result and save it
     public void processScanResult(IntentResult result) {
         if (result != null && result.getContents() != null) {
             String scanResultContent = result.getContents();
@@ -67,7 +84,6 @@ public class ScanViewModel extends AndroidViewModel {
             String scanTypeValue = determineScanType(result);
             ScanResult scanResult = new ScanResult(scanResultContent, scanTypeValue, false);
             scanRepository.insertLatestScanResult(scanResult);
-
             scanType.setValue(scanTypeValue);
         } else {
             scannedResult.setValue("Scan canceled or failed");

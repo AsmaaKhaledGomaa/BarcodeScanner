@@ -37,6 +37,8 @@ public class ScanFragment extends Fragment {
     private PermissionManager permissionManager;
     private boolean isFavorite = false;
 
+    private Integer scanId = -1;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentScanBinding.inflate(inflater, container, false);
@@ -49,6 +51,7 @@ public class ScanFragment extends Fragment {
     }
 
     private void setupObservers() {
+
         scanViewModel.isPermissionGranted().observe(getViewLifecycleOwner(), isGranted -> {
             if (isGranted) {
                 scanViewModel.startScan(this);
@@ -61,8 +64,11 @@ public class ScanFragment extends Fragment {
             if (latestScan != null && latestScan.getResult() != null && !latestScan.getResult().isEmpty()) {
                 binding.scanResult.setText(latestScan.getResult());
                 binding.scanType.setText("Scan Type: " + latestScan.getType());
+
+                scanId = latestScan.getId();
                 isFavorite = latestScan.isFavorite();
-                updateFavoriteButtonState();
+                scanViewModel.setIsFavorite(isFavorite);
+                updateFavoriteButtonState(isFavorite);
                 binding.favoriteButton.setEnabled(true);
                 Log.d("Scansaved", "ScanFragment: Latest scan: " + latestScan.getResult());
 
@@ -75,13 +81,13 @@ public class ScanFragment extends Fragment {
             }
         });
 
-
         binding.favoriteButton.setOnClickListener(v -> {
-            isFavorite = !isFavorite;
-            if (isFavorite) {
+            isFavorite = scanViewModel.getIsFavorite().getValue() != null && scanViewModel.getIsFavorite().getValue();
+            scanViewModel.toggleFavorite(scanId);
+            if (scanViewModel.getIsFavorite().getValue()) {
                 addToFavorites();
             }
-            updateFavoriteButtonState();
+            updateFavoriteButtonState(scanViewModel.getIsFavorite().getValue());
         });
     }
 
@@ -99,7 +105,7 @@ public class ScanFragment extends Fragment {
         }
     }
 
-    private void updateFavoriteButtonState() {
+    private void updateFavoriteButtonState(Boolean isFavorite) {
         int color = isFavorite ? R.color.red : R.color.green;
         binding.favoriteButton.setColorFilter(ContextCompat.getColor(requireContext(), color), PorterDuff.Mode.SRC_IN);
     }
@@ -113,7 +119,7 @@ public class ScanFragment extends Fragment {
     private void checkPermissionDenialCount() {
         int deniedCount = permissionManager.getCameraPermissionDenialCount();
 
-        if (deniedCount >= 3) {
+        if (deniedCount > 3) {
             PermissionUtils.openAppSettings(this);
         } else {
             requestCameraPermission();
