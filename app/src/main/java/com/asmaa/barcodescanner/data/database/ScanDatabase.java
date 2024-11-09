@@ -13,7 +13,7 @@ import com.asmaa.barcodescanner.data.dao.ScanResultDao;
 @Database(entities = {ScanResult.class}, version = 1, exportSchema = false)
 public abstract class ScanDatabase extends RoomDatabase {
 
-    private static ScanDatabase INSTANCE;
+    private static volatile ScanDatabase INSTANCE;
 
     public abstract ScanResultDao scanResultDao();
 

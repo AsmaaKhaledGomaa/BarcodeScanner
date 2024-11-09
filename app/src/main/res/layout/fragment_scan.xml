@@ -46,7 +46,7 @@
                 android:autoLink="web"
                 android:linksClickable="true"
                 android:gravity="center"
-                android:text="Scan result will appear here"
+                android:text="Scan result"
                 android:textSize="18sp"
                 android:textColor="@color/white"/>
 
