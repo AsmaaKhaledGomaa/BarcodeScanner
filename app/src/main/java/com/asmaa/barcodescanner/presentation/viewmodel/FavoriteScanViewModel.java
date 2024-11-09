@@ -36,6 +36,7 @@ public class FavoriteScanViewModel extends AndroidViewModel {
     public void deleteFavoriteById(int id) {
         favoriteScanUseCase.deleteFavoriteById(id);
     }
+
 }
 
 

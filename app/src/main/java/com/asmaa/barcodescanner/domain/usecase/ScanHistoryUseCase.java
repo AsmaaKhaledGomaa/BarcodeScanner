@@ -7,15 +7,19 @@ import com.asmaa.barcodescanner.domain.repo.ScanHistoryRepository;
 
 import java.util.List;
 
-public class GetScanHistoryUseCase {
+public class ScanHistoryUseCase {
     private final ScanHistoryRepository scanHistoryRepository;
 
-    public GetScanHistoryUseCase(ScanHistoryRepository scanHistoryRepository) {
+    public ScanHistoryUseCase(ScanHistoryRepository scanHistoryRepository) {
         this.scanHistoryRepository = scanHistoryRepository;
     }
 
     public LiveData<List<ScanResult>> execute() {
         return scanHistoryRepository.getAllScanResults();
+    }
+
+    public void deleteHistoryById(int id) {
+        scanHistoryRepository.deleteById(id);
     }
 }
 

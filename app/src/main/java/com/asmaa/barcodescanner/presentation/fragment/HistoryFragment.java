@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 
 import com.asmaa.barcodescanner.R;
 import com.asmaa.barcodescanner.presentation.adapter.ScanHistoryAdapter;
+import com.asmaa.barcodescanner.presentation.listenner.OnDeleteClickListener;
 import com.asmaa.barcodescanner.presentation.viewmodel.HistoryViewModel;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements OnDeleteClickListener {
     private RecyclerView recyclerView;
     private ScanHistoryAdapter adapter;
     private HistoryViewModel historyViewModel;
@@ -27,7 +28,7 @@ public class HistoryFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ScanHistoryAdapter();
+        adapter = new ScanHistoryAdapter(this);
         recyclerView.setAdapter(adapter);
 
         historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
@@ -38,5 +39,11 @@ public class HistoryFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onDeleteClick(int id) {
+        historyViewModel.deleteHistoryById(id);
+
     }
 }

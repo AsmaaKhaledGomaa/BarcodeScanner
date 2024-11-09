@@ -32,7 +32,6 @@ public class FavoriteFragment extends Fragment implements OnDeleteClickListener 
     }
 
     private void setupRecyclerView(FragmentFavoriteBinding binding) {
-        // Pass the fragment as the listener to the adapter
         favoriteScanAdapter = new FavoriteScanAdapter(this);
         binding.favoriteScanRecyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.favoriteScanRecyclerview.setAdapter(favoriteScanAdapter);

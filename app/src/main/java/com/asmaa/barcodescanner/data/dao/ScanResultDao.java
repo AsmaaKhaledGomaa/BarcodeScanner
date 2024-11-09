@@ -26,5 +26,8 @@ public interface ScanResultDao {
 
     @Query("SELECT * FROM scan_result ORDER BY id DESC")
     LiveData<List<ScanResult>> getAllScanResults();
+
+    @Query("DELETE FROM scan_result WHERE id = :id")
+    void deleteById(int id);
 }
 

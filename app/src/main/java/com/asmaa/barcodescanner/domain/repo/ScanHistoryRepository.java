@@ -21,5 +21,9 @@ public class ScanHistoryRepository {
     public LiveData<List<ScanResult>> getAllScanResults() {
         return scanResultDao.getAllScanResults();
     }
+
+    public void deleteById(int id) {
+        new Thread(() -> scanResultDao.deleteById(id)).start();
+    }
 }
 
