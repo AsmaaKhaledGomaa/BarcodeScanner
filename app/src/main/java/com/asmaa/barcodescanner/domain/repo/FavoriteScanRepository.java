@@ -23,21 +23,17 @@ public class FavoriteScanRepository {
         return favoriteScanDao.getFavoriteScanByResult(scanResult);
     }
 
-
     public void insert(FavoriteScan favoriteScan) {
         new Thread(() -> favoriteScanDao.insert(favoriteScan)).start();
     }
 
     public void deleteById(int id) {
-        // This should run on a background thread
         new Thread(() -> favoriteScanDao.deleteById(id)).start();
     }
 
     public void delete() {
-        // This should run on a background thread
         new Thread(() -> favoriteScanDao.delete()).start();
     }
-
 
     public LiveData<List<FavoriteScan>> getAllFavorites() {
         return favoriteScanDao.getAllFavorites();
