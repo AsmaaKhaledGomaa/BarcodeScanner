@@ -82,6 +82,16 @@ public class ScanFragment extends Fragment {
         });
 
         binding.favoriteButton.setOnClickListener(v -> {
+            String scanResult = scanViewModel.getScannedResult().getValue();
+            String scanType = scanViewModel.getScanType().getValue();
+
+            if (scanResult == null || scanResult.isEmpty() || scanType == null || scanType.isEmpty()) {
+                binding.favoriteButton.setEnabled(false);
+                Toast.makeText(requireContext(), "Scan result or type is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            binding.favoriteButton.setEnabled(true);
             isFavorite = scanViewModel.getIsFavorite().getValue() != null && scanViewModel.getIsFavorite().getValue();
             scanViewModel.toggleFavorite(scanId);
             if (scanViewModel.getIsFavorite().getValue()) {
