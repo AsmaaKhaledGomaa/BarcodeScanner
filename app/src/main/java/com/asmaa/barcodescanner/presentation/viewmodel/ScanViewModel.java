@@ -29,6 +29,14 @@ public class ScanViewModel extends AndroidViewModel {
         scanRepository = new ScanRepository(application);
     }
 
+    public LiveData<String> getScannedResult() {
+        return scannedResult;
+    }
+
+    public LiveData<String> getScanType() {
+        return scanType;
+    }
+
     public LiveData<ScanResult> getLatestScanResult() {
         return scanRepository.getLatestScanResult();
     }
@@ -43,10 +51,9 @@ public class ScanViewModel extends AndroidViewModel {
     }
 
     public void startScan(ScanFragment fragment) {
-        if (scanUseCase != null) {  // Check if it's initialized
+        if (scanUseCase != null) {
             scanUseCase.startScan(fragment);
         } else {
-            // Handle the case where scanUseCase is not initialized
             Log.e("ScanViewModel", "scanUseCase is not initialized.");
         }
     }
@@ -57,7 +64,6 @@ public class ScanViewModel extends AndroidViewModel {
             String scanResultContent = result.getContents();
             scannedResult.setValue(scanResultContent);
 
-            // Insert the latest scan result into the database
             String scanTypeValue = determineScanType(result);
             ScanResult scanResult = new ScanResult(scanResultContent, scanTypeValue, false);
             scanRepository.insertLatestScanResult(scanResult);
@@ -69,7 +75,6 @@ public class ScanViewModel extends AndroidViewModel {
         }
     }
 
-    // Determine scan type based on result format
     private String determineScanType(IntentResult result) {
         String formatName = result.getFormatName();
         if ("QR_CODE".equals(formatName)) {

@@ -9,30 +9,25 @@ import java.util.List;
 
 public class FavoriteUseCase {
 
-    private final FavoriteScanRepository favoriteScanRepository;
+    private final FavoriteScanRepository repository;
 
-    public FavoriteUseCase(FavoriteScanRepository favoriteScanRepository) {
-        this.favoriteScanRepository = favoriteScanRepository;
+    public FavoriteUseCase(FavoriteScanRepository repository) {
+        this.repository = repository;
     }
 
     public LiveData<List<FavoriteScan>> getAllFavorites() {
-        return favoriteScanRepository.getAllFavorites();
+        return repository.getAllFavorites();
     }
 
     public void addFavorite(FavoriteScan favoriteScan) {
-        favoriteScanRepository.insert(favoriteScan);
+        repository.insert(favoriteScan);
     }
 
     public void deleteFavoriteById(int id) {
-        favoriteScanRepository.deleteById(id);
-    }
-
-    public void clearFavorites() {
-        favoriteScanRepository.delete();
+        repository.deleteById(id);
     }
 
     public LiveData<FavoriteScan> getFavoriteScanByResult(String scanResult) {
-        return favoriteScanRepository.getFavoriteScanByResult(scanResult);
+        return repository.getFavoriteScanByResult(scanResult);
     }
 }
-

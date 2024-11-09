@@ -36,10 +36,6 @@ public class FavoriteScanViewModel extends AndroidViewModel {
         favoriteUseCase.deleteFavoriteById(id);
     }
 
-    public void clearFavorites() {
-        favoriteUseCase.clearFavorites();
-    }
-
     public LiveData<FavoriteScan> getFavoriteScanByResult(String scanResult) {
         return favoriteUseCase.getFavoriteScanByResult(scanResult);
     }

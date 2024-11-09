@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.asmaa.barcodescanner.R;
 import com.asmaa.barcodescanner.data.entity.FavoriteScan;
-import com.asmaa.barcodescanner.data.entity.ScanResult;
 import com.asmaa.barcodescanner.databinding.FragmentScanBinding;
 import com.asmaa.barcodescanner.presentation.viewmodel.FavoriteScanViewModel;
 import com.asmaa.barcodescanner.presentation.viewmodel.ScanViewModel;
@@ -60,12 +59,11 @@ public class ScanFragment extends Fragment {
 
         scanViewModel.getLatestScanResult().observe(getViewLifecycleOwner(), latestScan -> {
             if (latestScan != null && latestScan.getResult() != null && !latestScan.getResult().isEmpty()) {
-                // Valid scan data, update UI
                 binding.scanResult.setText(latestScan.getResult());
                 binding.scanType.setText("Scan Type: " + latestScan.getType());
                 isFavorite = latestScan.isFavorite();
                 updateFavoriteButtonState();
-                binding.favoriteButton.setEnabled(true); // Enable button if scan is valid
+                binding.favoriteButton.setEnabled(true);
                 Log.d("Scansaved", "ScanFragment: Latest scan: " + latestScan.getResult());
 
             } else {
@@ -80,8 +78,25 @@ public class ScanFragment extends Fragment {
 
         binding.favoriteButton.setOnClickListener(v -> {
             isFavorite = !isFavorite;
+            if (isFavorite) {
+                addToFavorites();
+            }
             updateFavoriteButtonState();
         });
+    }
+
+    private void addToFavorites() {
+        String scanResult = scanViewModel.getScannedResult().getValue();
+        String scanType = scanViewModel.getScanType().getValue();
+
+        if (scanResult != null && !scanResult.isEmpty() && scanType != null && !scanType.isEmpty()) {
+            FavoriteScan favoriteScan = new FavoriteScan(scanResult, scanType);
+
+            favoriteScanViewModel.addFavorite(favoriteScan);
+            Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(), "Scan result or type is empty", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void updateFavoriteButtonState() {
