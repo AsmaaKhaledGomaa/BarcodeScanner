@@ -2,4 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#202224</color>
+    <color name="link">#FF1E88E5</color>
+    <color name="page">#c49450</color>
+    <color name="offwite">#e1d5c9</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+
+    <!-- Navigation Item Colors -->
+    <color name="nav_item_selected">#c49450</color> <!-- Active item color -->
+    <color name="nav_item_unselected">#888888</color> <!-- Inactive item color -->
 </resources>
