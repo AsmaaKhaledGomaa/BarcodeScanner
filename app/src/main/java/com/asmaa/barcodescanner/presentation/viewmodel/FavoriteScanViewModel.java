@@ -6,22 +6,23 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.asmaa.barcodescanner.data.database.FavoriteDatabase;
 import com.asmaa.barcodescanner.data.entity.FavoriteScan;
 import com.asmaa.barcodescanner.domain.repo.FavoriteScanRepository;
-import com.asmaa.barcodescanner.domain.usecase.FavoriteUseCase;
+import com.asmaa.barcodescanner.domain.usecase.FavoriteScanUseCase;
 
 import java.util.List;
 
 public class FavoriteScanViewModel extends AndroidViewModel {
 
-    private final FavoriteUseCase favoriteUseCase;
+    private final FavoriteScanUseCase favoriteScanUseCase;
     private final LiveData<List<FavoriteScan>> allFavorites;
 
     public FavoriteScanViewModel(@NonNull Application application) {
         super(application);
-        FavoriteScanRepository repository = new FavoriteScanRepository(application);
-        favoriteUseCase = new FavoriteUseCase(repository);
-        allFavorites = favoriteUseCase.getAllFavorites(); // Access favorites through use case
+        FavoriteScanRepository repository = new FavoriteScanRepository(FavoriteDatabase.getDatabase(application).favoriteScanDao());
+        favoriteScanUseCase = new FavoriteScanUseCase(repository);
+        allFavorites = favoriteScanUseCase.getAllFavorites();
     }
 
     public LiveData<List<FavoriteScan>> getAllFavorites() {
@@ -29,17 +30,14 @@ public class FavoriteScanViewModel extends AndroidViewModel {
     }
 
     public void addFavorite(FavoriteScan favoriteScan) {
-        favoriteUseCase.addFavorite(favoriteScan);
+        favoriteScanUseCase.addFavorite(favoriteScan);
     }
 
     public void deleteFavoriteById(int id) {
-        favoriteUseCase.deleteFavoriteById(id);
-    }
-
-    public LiveData<FavoriteScan> getFavoriteScanByResult(String scanResult) {
-        return favoriteUseCase.getFavoriteScanByResult(scanResult);
+        favoriteScanUseCase.deleteFavoriteById(id);
     }
 }
+
 
 
 

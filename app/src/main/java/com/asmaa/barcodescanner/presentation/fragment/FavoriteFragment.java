@@ -16,23 +16,22 @@ import com.asmaa.barcodescanner.presentation.viewmodel.FavoriteScanViewModel;
 
 public class FavoriteFragment extends Fragment {
 
-    private FragmentFavoriteBinding binding;
     private FavoriteScanViewModel favoriteScanViewModel;
     private FavoriteScanAdapter favoriteScanAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentFavoriteBinding.inflate(inflater, container, false);
+        FragmentFavoriteBinding binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         favoriteScanViewModel = new ViewModelProvider(this).get(FavoriteScanViewModel.class);
 
-        setupRecyclerView();
+        setupRecyclerView(binding);
         observeFavorites();
 
         return binding.getRoot();
     }
 
-    private void setupRecyclerView() {
-        favoriteScanAdapter = new FavoriteScanAdapter();
+    private void setupRecyclerView(FragmentFavoriteBinding binding) {
+        favoriteScanAdapter = new FavoriteScanAdapter(favoriteScanViewModel::deleteFavoriteById);
         binding.favoriteScanRecyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.favoriteScanRecyclerview.setAdapter(favoriteScanAdapter);
     }
@@ -41,15 +40,8 @@ public class FavoriteFragment extends Fragment {
         favoriteScanViewModel.getAllFavorites().observe(getViewLifecycleOwner(), favorites -> {
             if (favorites != null) {
                 favoriteScanAdapter.submitList(favorites);
-                favoriteScanAdapter.notifyDataSetChanged();
             }
         });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }
 

@@ -17,7 +17,7 @@
         app:cardElevation="6dp"
         android:backgroundTint="@color/gray">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -28,7 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{favoriteScan.scanType}"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/scanResultTextView"
@@ -37,8 +39,24 @@
                 android:layout_marginBottom="8dp"
                 android:text="@{favoriteScan.scanResult}"
                 android:textSize="16sp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/scanTypeTextView"
+                app:layout_constraintTop_toBottomOf="@id/scanTypeTextView"
+                app:layout_constraintEnd_toStartOf="@id/delete_button"/>
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_delete"
+                android:foregroundGravity="center"
+                app:tint="@color/page"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="15dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

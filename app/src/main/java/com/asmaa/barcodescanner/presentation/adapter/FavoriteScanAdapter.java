@@ -13,8 +13,12 @@ import com.asmaa.barcodescanner.data.entity.FavoriteScan;
 import com.asmaa.barcodescanner.databinding.ItemFavoriteScanBinding;
 
 public class FavoriteScanAdapter extends ListAdapter<FavoriteScan, FavoriteScanAdapter.FavoriteScanViewHolder> {
-    public FavoriteScanAdapter() {
+
+    private final OnFavoriteClickListener onFavoriteClickListener;
+
+    public FavoriteScanAdapter(OnFavoriteClickListener onFavoriteClickListener) {
         super(DIFF_CALLBACK);
+        this.onFavoriteClickListener = onFavoriteClickListener;
     }
 
     public static final DiffUtil.ItemCallback<FavoriteScan> DIFF_CALLBACK = new DiffUtil.ItemCallback<FavoriteScan>() {
@@ -42,6 +46,11 @@ public class FavoriteScanAdapter extends ListAdapter<FavoriteScan, FavoriteScanA
     public void onBindViewHolder(@NonNull FavoriteScanViewHolder holder, int position) {
         FavoriteScan favoriteScan = getItem(position);
         holder.bind(favoriteScan);
+        holder.binding.deleteButton.setOnClickListener(v -> {
+            if (onFavoriteClickListener != null) {
+                onFavoriteClickListener.onDeleteClick(favoriteScan.getId());
+            }
+        });
     }
 
     public static class FavoriteScanViewHolder extends RecyclerView.ViewHolder {
@@ -57,4 +66,9 @@ public class FavoriteScanAdapter extends ListAdapter<FavoriteScan, FavoriteScanA
             binding.executePendingBindings();
         }
     }
+
+    public interface OnFavoriteClickListener {
+        void onDeleteClick(int id);
+    }
 }
+
