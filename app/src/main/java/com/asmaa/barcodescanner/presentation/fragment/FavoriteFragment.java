@@ -11,10 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.asmaa.barcodescanner.databinding.FragmentFavoriteBinding;
 import com.asmaa.barcodescanner.presentation.adapter.FavoriteScanAdapter;
+import com.asmaa.barcodescanner.presentation.listenner.OnDeleteClickListener;
 import com.asmaa.barcodescanner.presentation.viewmodel.FavoriteScanViewModel;
 
 
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements OnDeleteClickListener {
 
     private FavoriteScanViewModel favoriteScanViewModel;
     private FavoriteScanAdapter favoriteScanAdapter;
@@ -31,7 +32,8 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void setupRecyclerView(FragmentFavoriteBinding binding) {
-        favoriteScanAdapter = new FavoriteScanAdapter(favoriteScanViewModel::deleteFavoriteById);
+        // Pass the fragment as the listener to the adapter
+        favoriteScanAdapter = new FavoriteScanAdapter(this);
         binding.favoriteScanRecyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.favoriteScanRecyclerview.setAdapter(favoriteScanAdapter);
     }
@@ -43,5 +45,11 @@ public class FavoriteFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onDeleteClick(int id) {
+        favoriteScanViewModel.deleteFavoriteById(id);
+    }
 }
+
 
